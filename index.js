@@ -1,14 +1,14 @@
 
-$(function(){
+$(function () {
 
-    function initMap(target){
+    function initMap(target) {
 
         let osmMap = new Cesium.OpenStreetMapImageryProvider({
-            url : 'https://a.tile.openstreetmap.org/'
+            url: 'https://a.tile.openstreetmap.org/'
         })
 
         let viewer = new Cesium.Viewer(target, {
-            homeButton:true,
+            homeButton: true,
             animation: false,
             timeline: false,
             infoBox: false,
@@ -28,10 +28,10 @@ $(function(){
 
     let viewer = initMap("cesiumContainer");
     viewer.camera.setView({
-        destination : Cesium.Cartesian3.fromDegrees(125.10, 24.30, 5000000)
+        destination: Cesium.Cartesian3.fromDegrees(125.10, 24.30, 5000000)
     });
-    viewer._cesiumWidget._creditContainer.style.display="none";
-    
+    viewer._cesiumWidget._creditContainer.style.display = "none";
+
     let typhoon = new $.typhoon(viewer);
     typhoon.init();
 

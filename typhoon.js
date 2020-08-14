@@ -1,16 +1,16 @@
 
-;(function(window, $){
+; (function (window, $) {
 
-    $.typhoon = function(viewer){
+    $.typhoon = function (viewer) {
         this.viewer = viewer;
         this.init();
     }
 
     $.extend($.typhoon, {
         prototype: {
-            init: function(){
-                let windCircleRadius = [["30KTS","300","350","380","260"],["50KTS","130","130","140","130"],["64KTS","60","60","60","60"]];
-                let typhoonPoint = {lon: 125.10, lat: 24.30};
+            init: function () {
+                let windCircleRadius = [["30KTS", "300", "350", "380", "260"], ["50KTS", "130", "130", "140", "130"], ["64KTS", "60", "60", "60", "60"]];
+                let typhoonPoint = { lon: 125.10, lat: 24.30 };
                 this.drawWindCircle(windCircleRadius, typhoonPoint);
             },
             /**
@@ -18,19 +18,19 @@
              * @param {Array} windCircleRadius 
              * @param {object} typhoonPoint 
              */
-            drawWindCircle: function(windCircleRadius, typhoonPoint){
+            drawWindCircle: function (windCircleRadius, typhoonPoint) {
 
-                for(let m=0;m<windCircleRadius.length;m++){
+                for (let m = 0; m < windCircleRadius.length; m++) {
 
-                    let enRadius = windCircleRadius[m][1]*1000;
-                    let esRadius = windCircleRadius[m][2]*1000;
-                    let wsRadius = windCircleRadius[m][3]*1000;
-                    let wnRadius = windCircleRadius[m][4]*1000;
+                    let enRadius = windCircleRadius[m][1] * 1000;
+                    let esRadius = windCircleRadius[m][2] * 1000;
+                    let wsRadius = windCircleRadius[m][3] * 1000;
+                    let wnRadius = windCircleRadius[m][4] * 1000;
 
-                    let enCircle = {lon: typhoonPoint.lon, lat: typhoonPoint.lat, radius: enRadius, direct: 'EN'}
-                    let esCircle = {lon: typhoonPoint.lon, lat: typhoonPoint.lat, radius: esRadius, direct: 'ES'}
-                    let wsCircle = {lon: typhoonPoint.lon, lat: typhoonPoint.lat, radius: wsRadius, direct: 'WS'}
-                    let wnCircle = {lon: typhoonPoint.lon, lat: typhoonPoint.lat, radius: wnRadius, direct: 'WN'}
+                    let enCircle = { lon: typhoonPoint.lon, lat: typhoonPoint.lat, radius: enRadius, direct: 'EN' }
+                    let esCircle = { lon: typhoonPoint.lon, lat: typhoonPoint.lat, radius: esRadius, direct: 'ES' }
+                    let wsCircle = { lon: typhoonPoint.lon, lat: typhoonPoint.lat, radius: wsRadius, direct: 'WS' }
+                    let wnCircle = { lon: typhoonPoint.lon, lat: typhoonPoint.lat, radius: wnRadius, direct: 'WN' }
                     let pointList = [];
 
                     //90°的扇形，四分之一圆，顺时针
@@ -41,7 +41,7 @@
 
                     let windType = windCircleRadius[m][0];
                     let circleColor = Cesium.Color.YELLOW;
-                    switch(windType){
+                    switch (windType) {
                         case "30KTS":
                             circleColor = Cesium.Color.fromCssColorString('#fff400');
                             break;
@@ -71,20 +71,20 @@
              * 获取台风风圈，返回的是风圈点集数组
              * @param {object} circle 
              */
-			getWindCircle: function(circle){
-				//90°的扇形，四分之一圆，顺时针
-				let start = 0;
-				let end = 90;
-				switch(circle.direct){
+            getWindCircle: function (circle) {
+                //90°的扇形，四分之一圆，顺时针
+                let start = 0;
+                let end = 90;
+                switch (circle.direct) {
                     case 'EN':
                         start = 0;
                         end = 90;
                         break;
-                    case 'ES': 
+                    case 'ES':
                         start = 90;
                         end = 180;
                         break;
-                    case 'WS': 
+                    case 'WS':
                         start = 180;
                         end = 270;
                         break;
@@ -92,11 +92,11 @@
                         start = 270;
                         end = 360;
                         break;
-				}
+                }
 
-				let pointArr = [];
-				pointArr = this.computeCirclularFlight(circle.lon, circle.lat, circle.radius, start, end);
-				return pointArr;
+                let pointArr = [];
+                pointArr = this.computeCirclularFlight(circle.lon, circle.lat, circle.radius, start, end);
+                return pointArr;
 
             },
             /**
@@ -107,19 +107,19 @@
              * @param {number} start 
              * @param {number} end 
              */
-            computeCirclularFlight: function(lon, lat, radius, start, end){
-                let  Ea = 6378137; //赤道半径
-                let  Eb = 6356725; //极半径 
-                let positionArr=[];
-                for (let i = start; i <=end; i=i+2) {
+            computeCirclularFlight: function (lon, lat, radius, start, end) {
+                let Ea = 6378137; //赤道半径
+                let Eb = 6356725; //极半径 
+                let positionArr = [];
+                for (let i = start; i <= end; i = i + 2) {
                     let dx = radius * Math.sin(i * Math.PI / 180.0);
                     let dy = radius * Math.cos(i * Math.PI / 180.0);
 
-                    let ec = Eb + (Ea-Eb) * (90.0 - lat) / 90.0;
+                    let ec = Eb + (Ea - Eb) * (90.0 - lat) / 90.0;
                     let ed = ec * Math.cos(lat * Math.PI / 180);
 
-                    let BJD = lon + (dx / ed ) * 180.0 / Math.PI;
-                    let BWD = lat + (dy / ec ) * 180.0 / Math.PI;
+                    let BJD = lon + (dx / ed) * 180.0 / Math.PI;
+                    let BWD = lat + (dy / ec) * 180.0 / Math.PI;
 
                     positionArr.push(BJD);
                     positionArr.push(BWD);

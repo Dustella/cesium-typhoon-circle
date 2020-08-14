@@ -11,7 +11,7 @@ Cesium 下绘制台风风圈，通过计算 90° 的扇形即四分之一圆，�
 ### 💻如何运行
 
 ```
-git clone https://github.com/vensing/cesium-wind
+git clone https://github.com/vensing/cesium-typhoon-circle.git
 ```
 
 使用 vscode 打开本项目，安装 `Live Server` 插件，选中 index.html 右键 Open with live server，即自动跳转到默认浏览器加载。
