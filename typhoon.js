@@ -3,7 +3,6 @@
 
     $.typhoon = function (viewer) {
         this.viewer = viewer;
-        this.init();
     }
 
     $.extend($.typhoon, {
