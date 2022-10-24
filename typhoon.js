@@ -1,4 +1,6 @@
 
+
+
 ; (function (window, $) {
 
     $.typhoon = function (viewer) {
@@ -10,8 +12,10 @@
             init: function () {
                 let windCircleRadius = [["30KTS", "300", "350", "380", "260"], ["50KTS", "130", "130", "140", "130"], ["64KTS", "60", "60", "60", "60"]];
                 let typhoonPoint = { lon: 125.10, lat: 24.30 };
+                this.drawConfig(`lon:${typhoonPoint.lon},lat:${typhoonPoint.lat}`);
                 this.drawWindCircle(windCircleRadius, typhoonPoint);
             },
+
             /**
              * 绘制台风风圈
              * @param {Array} windCircleRadius 
@@ -124,6 +128,10 @@
                     positionArr.push(BWD);
                 }
                 return positionArr;
+            },
+            drawConfig:(config)=>{
+                const configView = document.querySelector("#config-overlay")
+                configView.innerHTML = config
             }
         }
     })

@@ -21,13 +21,21 @@
             z-index: 3;
             pointer-events: none;
         }
+        #config-overlay{
+          position: absolute;
+          font-size: larger;
+          font-weight: bolder;
+          color: rgb(41, 74, 7);
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.64.0/Build/Cesium/Widgets/widgets.css">
     <script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/cesium@1.64.0/Build/Cesium/Cesium.js"></script>
     <script src="index.js"></script>
+    <script src="config.js"></script>
     <script src="typhoon.js"></script>
   <body>
     <div id="cesiumContainer" class="fullSize"></div>
+    <div id="config-overlay"></div> 
   </body>
 </html>
